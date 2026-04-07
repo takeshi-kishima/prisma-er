@@ -5,6 +5,10 @@
   "version": "0.1.0",
   "publisher": "prisma-er",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/takeshi-kishima/prisma-er"
+  },
   "engines": {
     "vscode": "^1.87.0"
   },
