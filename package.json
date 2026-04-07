@@ -2,13 +2,14 @@
   "name": "prisma-er-diagram",
   "displayName": "Prisma ER Diagram Visualizer",
   "description": "Visualize Prisma schema files as interactive ER diagrams",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "omni-kobo",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/takeshi-kishima/prisma-er"
   },
+  "icon": "assets/icon.png",
   "engines": {
     "vscode": "^1.87.0"
   },

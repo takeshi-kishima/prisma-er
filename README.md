@@ -43,6 +43,20 @@ model Clinic {
 - **モデルコメント** → テーブルヘッダーの下にサブタイトルとして表示
 - **フィールドコメント** → カラムにホバーするとツールチップとして表示
 
+### prisma-commenter との連携
+
+[prisma-commenter](https://www.npmjs.com/package/prisma-commenter) を使うと、データベースのカラムコメントと `schema.prisma` の `///` コメントを簡単に同期できます。
+
+```bash
+# データベースのコメントを schema.prisma に反映
+npx prisma-commenter pull
+
+# schema.prisma の /// コメントをデータベースに反映
+npx prisma-commenter push
+```
+
+`prisma db pull` では失われてしまうデータベースのコメントを `///` として保持し、本拡張機能で ER ダイアグラム上に可視化できます。
+
 ## 設定
 
 | 設定項目 | 説明 | デフォルト |
