@@ -1,0 +1,90 @@
+{
+  "name": "prisma-er-diagram",
+  "displayName": "Prisma ER Diagram Visualizer",
+  "description": "Visualize Prisma schema files as interactive ER diagrams",
+  "version": "0.1.0",
+  "publisher": "prisma-er",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.87.0"
+  },
+  "categories": [
+    "Visualization"
+  ],
+  "main": "./dist/extension/index.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "prisma-er.previewDiagrams",
+        "title": "Prisma: Show ER Diagram",
+        "icon": {
+          "light": "./assets/icons/open-preview.svg",
+          "dark": "./assets/icons/open-preview-dark.svg"
+        }
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == prisma",
+          "command": "prisma-er.previewDiagrams",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Prisma ER Diagram",
+      "properties": {
+        "prismaERDPreviewer.preferredTheme": {
+          "type": "string",
+          "default": "dark",
+          "enum": [
+            "dark",
+            "light"
+          ],
+          "description": "Preferred theme for the ER diagram preview"
+        },
+        "prismaERDPreviewer.scrollDirection": {
+          "type": "string",
+          "default": "up-out",
+          "enum": [
+            "up-out",
+            "up-in"
+          ],
+          "description": "Scroll direction for zooming"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "package": "vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "@dagrejs/dagre": "^1.1.2",
+    "@mrleebo/prisma-ast": "^0.12.0",
+    "@tomjs/vscode-extension-webview": "^2.0.0",
+    "eventemitter3": "^5.0.1",
+    "konva": "^9.3.6",
+    "lucide-react": "^0.365.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-konva": "^18.2.10"
+  },
+  "devDependencies": {
+    "@tomjs/vite-plugin-vscode": "^2.2.0",
+    "@types/node": "^18.19.0",
+    "@types/react": "^18.2.75",
+    "@types/react-dom": "^18.2.24",
+    "@types/vscode": "^1.87.0",
+    "@vitejs/plugin-react-swc": "^3.6.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.0",
+    "vite": "^5.2.8",
+    "vite-tsconfig-paths": "^4.3.2"
+  }
+}
