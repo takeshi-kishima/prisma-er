@@ -29,11 +29,11 @@ const Column = ({ colName, tableName, type, isPrimaryKey = false, offsetY, relat
 
   return (
     <ColumnWrapper highlightColor={tableColors?.lighter ?? themeColors.colAccent} relationalTables={relationalTables} offsetY={offsetY} tableName={tableName} columnName={colName}>
-      {(highlighted) => (
+      {(highlighted, hovered) => (
         <>
           <KonvaText ellipsis wrap="none" text={colName} fill={highlighted ? tableColors?.regular ?? colNameBaseFill : colNameBaseFill} width={tablePreferredWidth} fontStyle={fontStyle} padding={PADDINGS.sm} height={COLUMN_HEIGHT} fontSize={FONT_SIZES.md} />
           <KonvaText text={type} align="right" width={tablePreferredWidth} fill={(highlighted && tableColors?.regular) || typeTextColor} padding={TABLE_FIELD_TYPE_PADDING} fontStyle={fontStyle} fontSize={FONT_SIZES.md} height={COLUMN_HEIGHT} />
-          {note != null || isEnum ? <FieldDetails note={note ?? ""} enumName={type} /> : null}
+          {(note != null || isEnum) && hovered ? <FieldDetails note={note ?? ""} enumName={type} /> : null}
         </>
       )}
     </ColumnWrapper>

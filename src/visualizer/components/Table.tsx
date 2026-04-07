@@ -5,7 +5,8 @@ import Column from "./Column/Column";
 import type { JSONTableTable } from "@/types/tableSchema";
 import type { KonvaEventObject } from "konva/lib/Node";
 import type Konva from "konva";
-import { COLUMN_HEIGHT, PADDINGS, TABLE_COLOR_HEIGHT, TABLE_HEADER_HEIGHT } from "@/visualizer/constants/sizing";
+import { COLUMN_HEIGHT, PADDINGS, TABLE_COLOR_HEIGHT } from "@/visualizer/constants/sizing";
+import { NOTE_HEIGHT } from "./TableHeader";
 import { useThemeColors, useThemeContext } from "@/visualizer/hooks/theme";
 import { Theme } from "@/visualizer/types/theme";
 import eventEmitter from "@/visualizer/events-emitter";
@@ -19,7 +20,7 @@ import computeFieldDisplayTypeName from "@/visualizer/utils/getFieldType";
 
 interface TableProps extends JSONTableTable {}
 
-const Table = ({ fields, name }: TableProps) => {
+const Table = ({ fields, name, note }: TableProps) => {
   const themeColors = useThemeColors();
   const { detailLevel } = useTableDetailLevel();
   const tableRef = useRef<null | Konva.Group>(null);
@@ -38,7 +39,9 @@ const Table = ({ fields, name }: TableProps) => {
     }
   }, [tableX, tableY]);
 
-  const tableHeight = TABLE_COLOR_HEIGHT + COLUMN_HEIGHT + visibleFields.length * COLUMN_HEIGHT + PADDINGS.sm;
+  const noteExtra = note ? NOTE_HEIGHT : 0;
+  const headerHeight = TABLE_COLOR_HEIGHT + COLUMN_HEIGHT + noteExtra;
+  const tableHeight = headerHeight + visibleFields.length * COLUMN_HEIGHT + PADDINGS.sm;
   const tableDragEventName = computeTableDragEventName(name);
 
   useEffect(() => {
@@ -80,9 +83,9 @@ const Table = ({ fields, name }: TableProps) => {
   return (
     <Group name={`table-${name.replace(/\s+/g, "_")}`} ref={tableRef} draggable onDragMove={handleOnDrag} width={tablePreferredWidth} height={tableHeight} onMouseEnter={() => setHoveredTableName(name)} onMouseLeave={() => setHoveredTableName(null)} onClick={() => { if (tableRef.current != null) tableRef.current.moveToTop(); }}>
       <Rect shadowBlur={PADDINGS.xs} shadowOpacity={0.2} shadowColor={themeColors.table.shadow} height={tableHeight} width={tablePreferredWidth} fill={themeColors.table.bg} cornerRadius={PADDINGS.sm} />
-      <TableHeader title={name} />
+      <TableHeader title={name} note={note} />
       {detailLevel !== TableDetailLevel.HeaderOnly ? (
-        <Group y={TABLE_HEADER_HEIGHT}>
+        <Group y={headerHeight}>
           {visibleFields.map((field, index) => (
             <Column key={field.name} colName={field.name} tableName={name} isEnum={field.type.is_enum} type={computeFieldDisplayTypeName(field)} isPrimaryKey={field.pk} offsetY={index * COLUMN_HEIGHT} relationalTables={field.relational_tables} note={field.note} />
           ))}

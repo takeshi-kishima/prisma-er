@@ -5,7 +5,7 @@ import { useTablesInfo, useTableWidth } from "@/visualizer/hooks/table";
 import { shouldHighLightCol } from "@/visualizer/utils/shouldHighLightCol";
 
 interface ColumnWrapperProps {
-  children: (highlighted: boolean) => ReactNode;
+  children: (highlighted: boolean, hovered: boolean) => ReactNode;
   offsetY?: number;
   tableName: string;
   relationalTables?: string[] | null;
@@ -23,7 +23,7 @@ const ColumnWrapper = ({ children, offsetY, tableName, relationalTables, highlig
   return (
     <Group onMouseOver={() => setHovered(true)} onMouseLeave={() => setHovered(false)} y={offsetY}>
       <Rect fill={highlighted ? highlightColor : "transparent"} width={tablePreferredWidth} height={COLUMN_HEIGHT} />
-      {children(highlighted)}
+      {children(highlighted, hovered)}
     </Group>
   );
 };

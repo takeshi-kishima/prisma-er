@@ -5,6 +5,7 @@ import type { Field } from "@mrleebo/prisma-ast";
 
 export const formatIntermediateTableField = (
   node: Field,
+  comment?: string,
 ): IntermediateField => {
   const fieldConfig = getFieldConfig(node.attributes);
 
@@ -15,6 +16,7 @@ export const formatIntermediateTableField = (
       many: node.array,
     },
     not_null: node.optional === undefined ? true : !node.optional,
+    note: comment,
     ...fieldConfig,
   };
 };

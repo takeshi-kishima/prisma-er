@@ -1,4 +1,3 @@
-import { useState } from "react";
 import EnumDetails from "./EnumDetails";
 import FieldDetailWrapper from "./FieldDetailWrapper";
 import { useGetEnum } from "@/visualizer/hooks/enums";
@@ -12,15 +11,12 @@ interface FieldDetailsProps {
 }
 
 const FieldDetails = ({ note, enumName }: FieldDetailsProps) => {
-  const [isVisible, setIsVisible] = useState(false);
   const enumObject = useGetEnum(enumName);
   const themeColors = useThemeColors();
 
   if (enumObject === undefined && !note) return null;
 
   const { w, h, noteH } = computeFieldDetailBoxDimension(note || undefined, enumObject);
-
-  if (!isVisible) return null;
 
   return (
     <FieldDetailWrapper width={w} height={h}>

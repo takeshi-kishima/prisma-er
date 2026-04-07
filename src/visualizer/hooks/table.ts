@@ -39,10 +39,10 @@ export const useTableDefaultPosition = (tableName: string): XYPosition => {
 export const useGetTableMinWidth = (table: JSONTableTable): number => {
   const tableLinesTexts = getTableLinesText(table.fields);
   const minWidth = useMemo(() => {
-    const minW = computeTablePreferredWidth(tableLinesTexts, table.name);
+    const minW = computeTablePreferredWidth(tableLinesTexts, table.name, table.note);
     tableWidthStore.setWidth(table.name, minW);
     return minW;
-  }, [tableLinesTexts]);
+  }, [tableLinesTexts, table.note]);
   return minWidth;
 };
 

@@ -10,6 +10,12 @@ import {
   type RelationType,
 } from "../../../types/intermediateFormattedNode";
 
+const isDocComment = (node: any): boolean =>
+  node.type === "comment" && typeof node.text === "string" && node.text.startsWith("///");
+
+const extractCommentText = (text: string): string =>
+  text.replace(/^\/\/\/\s?/, "");
+
 export const createIntermediateSchema = (
   nodes: Schema["list"],
 ): IntermediateSchema => {
@@ -29,7 +35,18 @@ export const createIntermediateSchema = (
     rawRelations.push(info);
   };
 
+  let pendingComment: string | undefined;
+
   for (const node of nodes) {
+    if (isDocComment(node)) {
+      const text = extractCommentText((node as any).text);
+      pendingComment = pendingComment ? `${pendingComment}\n${text}` : text;
+      continue;
+    }
+
+    const modelComment = pendingComment;
+    pendingComment = undefined;
+
     if (isEnumNode(node)) {
       const _enum = enumNodeToJSONTableEnum(node);
       enumsNames.add(_enum.name);
@@ -43,6 +60,7 @@ export const createIntermediateSchema = (
           node,
           registerRawRelation,
           registerInverseRelation,
+          modelComment,
         ),
       );
     }

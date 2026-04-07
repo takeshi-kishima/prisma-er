@@ -6,7 +6,7 @@ import {
 } from "../../types/intermediateFormattedNode";
 
 export const intermediateTableToJSONTableTable = (
-  { fields: intermediateFields, name, indexes }: IntermediateTable,
+  { fields: intermediateFields, name, note, indexes }: IntermediateTable,
   enumsSet: Set<string>,
   fieldRelationTable: FieldRelationsMap,
   tablesSet: Set<string>,
@@ -29,5 +29,5 @@ export const intermediateTableToJSONTableTable = (
     fields.push(field);
   }
 
-  return { name, fields, indexes };
+  return { name, note, fields, indexes };
 };

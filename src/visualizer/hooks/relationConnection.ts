@@ -24,8 +24,10 @@ export const useRelationsColsY = (
   target: RelationItem,
 ): [number, number] => {
   const tablesInfo = useTablesInfo();
-  const sourceColY = computeColY(tablesInfo.colsIndexes, source);
-  const targetColY = computeColY(tablesInfo.colsIndexes, target);
+  const sourceNoteOffset = tablesInfo.tableNoteOffsets[source.tableName] ?? 0;
+  const targetNoteOffset = tablesInfo.tableNoteOffsets[target.tableName] ?? 0;
+  const sourceColY = computeColY(tablesInfo.colsIndexes, source, sourceNoteOffset);
+  const targetColY = computeColY(tablesInfo.colsIndexes, target, targetNoteOffset);
   return [sourceColY, targetColY];
 };
 
