@@ -1,0 +1,96 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+/// 部署
+model Department {
+  id        Int        @id @default(autoincrement())
+  /// 部署名
+  name      String     @db.VarChar(100)
+  /// 作成日時
+  createdAt DateTime   @default(now())
+  employees Employee[]
+  projects  Project[]
+}
+
+/// 社員
+model Employee {
+  id           Int           @id @default(autoincrement())
+  /// 氏名
+  name         String        @db.VarChar(100)
+  /// メールアドレス
+  email        String        @unique
+  /// 役職
+  role         Role          @default(MEMBER)
+  departmentId Int
+  department   Department    @relation(fields: [departmentId], references: [id])
+  tasks        Task[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+/// プロジェクト
+model Project {
+  id           Int        @id @default(autoincrement())
+  /// プロジェクト名
+  name         String     @db.VarChar(200)
+  /// 説明
+  description  String?    @db.Text
+  /// ステータス
+  status       Status     @default(PLANNING)
+  departmentId Int
+  department   Department @relation(fields: [departmentId], references: [id])
+  tasks        Task[]
+  startDate    DateTime?
+  endDate      DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+/// タスク
+model Task {
+  id         Int       @id @default(autoincrement())
+  /// タスク名
+  title      String    @db.VarChar(200)
+  /// 詳細
+  content    String?   @db.Text
+  /// 優先度
+  priority   Priority  @default(MEDIUM)
+  /// 完了フラグ
+  done       Boolean   @default(false)
+  projectId  Int
+  project    Project   @relation(fields: [projectId], references: [id])
+  assigneeId Int?
+  assignee   Employee? @relation(fields: [assigneeId], references: [id])
+  dueDate    DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+/// 役職
+enum Role {
+  ADMIN
+  MANAGER
+  MEMBER
+}
+
+/// ステータス
+enum Status {
+  PLANNING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+/// 優先度
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
