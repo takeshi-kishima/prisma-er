@@ -3,7 +3,7 @@
   "displayName": "Prisma ER Diagram Visualizer",
   "description": "Visualize Prisma schema files as interactive ER diagrams",
   "version": "0.1.0",
-  "publisher": "prisma-er",
+  "publisher": "omni-kobo",
   "license": "MIT",
   "repository": {
     "type": "git",
