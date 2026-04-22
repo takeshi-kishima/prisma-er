@@ -1,7 +1,7 @@
 {
   "name": "prisma-er-diagram",
-  "displayName": "Prisma ER Diagram Visualizer",
-  "description": "Visualize Prisma schema files as interactive ER diagrams",
+  "displayName": "%extension.displayName%",
+  "description": "%extension.description%",
   "version": "0.1.1",
   "publisher": "omni-kobo",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "commands": [
       {
         "command": "prisma-er.previewDiagrams",
-        "title": "Prisma: Show ER Diagram",
+        "title": "%commands.previewDiagrams.title%",
         "icon": {
           "light": "./assets/icons/open-preview.svg",
           "dark": "./assets/icons/open-preview-dark.svg"
@@ -36,10 +36,24 @@
           "command": "prisma-er.previewDiagrams",
           "group": "navigation"
         }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceLangId == prisma",
+          "command": "prisma-er.previewDiagrams",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourceExtname == .prisma",
+          "command": "prisma-er.previewDiagrams",
+          "group": "navigation"
+        }
       ]
     },
     "configuration": {
-      "title": "Prisma ER Diagram",
+      "title": "%configuration.title%",
       "properties": {
         "prismaERDPreviewer.preferredTheme": {
           "type": "string",
@@ -48,7 +62,7 @@
             "dark",
             "light"
           ],
-          "description": "Preferred theme for the ER diagram preview"
+          "description": "%configuration.preferredTheme.description%"
         },
         "prismaERDPreviewer.scrollDirection": {
           "type": "string",
@@ -57,7 +71,7 @@
             "up-out",
             "up-in"
           ],
-          "description": "Scroll direction for zooming"
+          "description": "%configuration.scrollDirection.description%"
         }
       }
     }

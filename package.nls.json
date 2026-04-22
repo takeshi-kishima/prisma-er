@@ -1,0 +1,8 @@
+{
+  "extension.displayName": "Prisma ER Diagram Visualizer",
+  "extension.description": "Visualize Prisma schema files as interactive ER diagrams",
+  "commands.previewDiagrams.title": "Prisma: Show ER Diagram",
+  "configuration.title": "Prisma ER Diagram",
+  "configuration.preferredTheme.description": "Preferred theme for the ER diagram preview",
+  "configuration.scrollDirection.description": "Scroll direction for zooming"
+}

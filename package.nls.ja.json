@@ -1,0 +1,8 @@
+{
+  "extension.displayName": "Prisma ER Diagram Visualizer",
+  "extension.description": "Prisma スキーマファイルをインタラクティブな ER 図として可視化します",
+  "commands.previewDiagrams.title": "Prisma: ER 図を表示",
+  "configuration.title": "Prisma ER Diagram",
+  "configuration.preferredTheme.description": "ER 図プレビューで使用する優先テーマ",
+  "configuration.scrollDirection.description": "ズーム時のスクロール方向"
+}
